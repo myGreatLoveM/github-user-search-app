@@ -7,7 +7,6 @@ export async function getUserInfoAndRepos(req, res) {
       },
     })
     const userInfo = await userResp.json()
-
    
     const userReposResp = await fetch(userInfo?.repos_url, {
       headers: {
@@ -15,7 +14,6 @@ export async function getUserInfoAndRepos(req, res) {
       },
     })
     const userReposInfo = await userReposResp.json()
-    console.log(userReposInfo)
 
     return res.status(200).json({
       success: true,
