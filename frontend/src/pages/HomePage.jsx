@@ -19,20 +19,15 @@ function HomePage() {
       setLoading(true)
       try {
         const userResp = await fetch(
-          `https://api.github.com/users/${username}`,
-          {
-            headers: {
-              authorization: `token ${import.meta.env.VITE_GITHUB_API_KEY}`,
-            },
-          }
+          `http://localhost:5000/api/users/profile/${username}`
         )
-        const userInfo = await userResp.json()
+        const {
+          data: { userInfo, userReposInfo },
+        } = await userResp.json()
 
         if (userResp.ok) {
           setUser(userInfo)
 
-          const userReposResp = await fetch(userInfo.repos_url)
-          const userReposInfo = await userReposResp.json()
           userReposInfo.sort(
             (a, b) => new Date(b.created_at) - new Date(a.created_at)
           )
